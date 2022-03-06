@@ -1,0 +1,21 @@
+on:
+  push:
+    branches: [master]
+name: Build and Deploy
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |
+          npm i
+          npm run build
+
+      - name: deploy
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages
+          folder: build
